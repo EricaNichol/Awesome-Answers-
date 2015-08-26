@@ -1,5 +1,7 @@
 == README
 
+This is a Question and answer application. We're going to be building a simple version of StackOverflow.
+
 This README would normally document whatever steps are necessary to get the
 application up and running.
 

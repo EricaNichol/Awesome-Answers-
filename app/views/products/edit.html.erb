@@ -1,0 +1,22 @@
+<h1>Edit Products</h1>
+
+<% if @product.errors.any? %>
+  <ul>
+    <% @product.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    <% end %>
+  </ul>
+<%= form_for @product do |f| %>
+<div>
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+</div>
+  <%= f.label :price %>
+  <%= f.text_field :price %>
+<div>
+  <%= f.label :description %>
+  <%= f.text_field :description %>
+</div>
+  <%= f.submit %>
+<% end %>

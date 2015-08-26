@@ -1,0 +1,27 @@
+<<h1><%= @product.title %></h1>
+<hr>
+<p><%= @product.price %></p>
+<p>Description:<%= @product.description %></p>
+<p><%= number_to_currency(@product.price) %></p>
+<%#= this link to the edit page of the question that shows a form to edit the vales already saved %>
+<%= link_to "Edit", edit_product_path(@product) %>
+<hr>
+
+<h1>New Comments</h1>
+<div class="form-group">
+  <%= form_for [@product, @comment] do |f| %>
+  <%= f.label :body %>
+  <%= f.text_area :body, class:"form-control" %>
+</div>
+<%= f.submit "Comment", class: "btn btn-primary" %>
+<% end %>
+
+<h2>Comments</h2>
+<% @product.comments.each do |com| %>
+  <div class="well">
+    <%= com.body %>
+    <%= link_to "Delete", product_comment_path(@product, com), method: :delete,
+        class: "btn btn-sm btn-danger",
+        data: {confirm: "Are you sure?"} %>
+  </div>
+<% end  %>

@@ -1,0 +1,25 @@
+<h1>My Contact Form</h1>
+
+<%= form_tag "/contact" do %>
+<div>
+  <%= label_tag :name %>
+  <%= text_field_tag :name %>
+</div>
+<div>
+  <%= label_tag :email %>
+  <%= email_field_tag :email %>
+</div>
+  <%= submit_tag "Contact Us"  %>
+<% end %>
+
+
+
+
+<%= hello_path %>
+<hr>
+<%= hello_url %>
+<hr>
+<%= greet_path({name: "Tam"}) %>
+<hr>
+<%= greet_url({name: "Tam"}) %>
+<hr>

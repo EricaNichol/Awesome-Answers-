@@ -3,5 +3,25 @@
 #
 # Examples:
 #
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
+#   cities          City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+["Art", "Sports", "Cats", "Technology", "Food"].each do |cat|
+  c = Category.new(name: cat)
+  c.save
+end
+
+all_category = Category.all
+
+100.times do
+  title       =  Faker::Company.bs
+  body        =  Faker::Lorem.paragraph
+  view_count  =   rand(100)
+  created_at  =   Time.now - (rand(30)).days
+  Question.create({title: title,
+                   body: body,
+                   category: all_category.sample, 
+                   view_count: view_count,
+                   created_at: created_at})
+end
+
+print Cowsay::say("Created a 100 questions")

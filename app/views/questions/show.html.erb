@@ -1,0 +1,62 @@
+<h1><%= @question.title %></h1>
+<hr>
+<p><%= @question.body %></p>
+<p>View Count:<%= @question.view_count %></p>
+<p>Category: <%= @question.category_name %>
+</p>
+<%#= this link to the edit page of the question that shows a form to edit the vales already saved %>
+<%= link_to "Edit", edit_question_path(@question), class: "btn btn-info" %>
+<%= link_to "Delete", question_path(@question), class: "btn btn-danger", method: :delete, data: {confirm: "are you sure?"} %>
+
+<%#= link_to (@question.locked ? "Lock" : "Un-lock"), question_path(@question, {question: {locked: !question.locked}}),
+    class: "btn btn-warning", method: :patch %>
+
+<%#= form_for @question do |f| %>
+  <%#= f.hidden_field :locked, value: !@question.locked %>
+  <%#= f.submit @question.locked ? "Lock" : "Un-lock", class: "btn btn-warning" %>
+  <%# end %>
+
+
+<hr>
+<h2>New Answer</h2>
+<% if @answer.errors.any? %>
+  <ul>
+    <% @answer.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    <% end %>
+  </ul>
+<%#--@answer (not persisted) -> URL:a ansswer_path (CREATE)  %>
+<%#--@answer ([ersosted (in db()) -> URL: answer_path(@answer) (update)])  %>
+<%#-- <%= form_for @answer, url: question_answers_path(@question) do |f| %>
+<%= form_for [@question, @answer] do |f| %>
+  <div class="form-group">
+    <%= f.label :body %>
+    <%= f.text_area :body, class:"form-control" %>
+  </div>
+  <%= f.submit "Create Answer", class: "btn btn-primary" %>
+<% end %>
+
+<h2>Answers</h2>
+<% @question.answers.each do |ans| %>
+  <div class="well">
+    <%= ans.body %>
+    <%# question_answer_path({question_id: @question, idLans})  %>
+    <%# question_answer_path(@question, ans) %>
+    <%#[question, ans]  %>
+    <%= link_to "Delete", question_answer_path(@question, ans), method: :delete,
+        class: "btn btn-sm btn-danger",
+        data: {confirm: "Are you sure?"} %>
+
+         <h3>Add Comment</h3>
+         <%= form_for [ans, Feedback.new] do |f| %>
+          <%= f.text_area :body, placeholder: "comment", class:"form-control" %>
+          <%= f.submit "Comment", class: "btn btn-primary" %>
+<% end %>
+<% ans.feedbacks.each do |com| %>
+  <div class="well">
+    <%= com.body %>
+  </div>
+    <% end %>
+  </div>
+<% end %>

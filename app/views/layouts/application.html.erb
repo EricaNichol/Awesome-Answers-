@@ -7,8 +7,43 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <div class="container">
+    <nav class="nav navbar-nav">
+      <%= link_to "Home", root_path %> <%#same as below, ROOT_PATH, anchor tag %>|
+      <%# link_to is a built-in Rails view helper that generate an anchor tag <a></a> the first argument is the anhor text, the second arument is the path or url and then it takes a hash of options %>
 
-<%= yield %>
+      <%= link_to "Contact Us", contact_path, class:"my-link-class", style:"color:blue" %> |
+      <%= link_to "Google", "http://www.google.com", {target: "_blank"} %> |
+      <%= link_to "Subscribe", subscribe_path, style:"color:blue" %> |
+      <!--%= link_to "Blog", blog_path, style:"color:blue" %-->
+      <!--%= link_to "Articles", articles_path, style:"color:red" %-->
+      <%= link_to "New Question", new_question_path, style:"color:blue" %> |
+      <%= link_to "All Question", questions_path, style:"color:blue" %>|
+      <%= link_to "Products", new_product_path, style:"color:blue"%> |
+      <%= link_to "All Products", products_path, style:"color:blue" %> |
+        <!-- <ul class="nav navbar-nav navbar-right"> -->
 
+      <%= link_to "Sign Up", new_user_path %> |
+      <%= link_to "Sign In", new_session_path %>
+      <% if user_signed_in? %>
+      <li>Hello <%= current_user.first_name %></li>
+      <li><%= link_to "Sign-Out", sessions_path, method: :delete %></li>
+      <% end %>
+      
+    </nav>
+
+    <!-- <%= render "/layouts/nav" %> -->
+    <%= notice || alert %>
+    <% if flash[:notice] %>
+      <div class="alert alert-success" role="alert"><%= flash[:notice] %></div>
+    <% elsif flash[:alert] %>
+      <div class="alert alert-danger" role="alert"><%= flash[:alert] %></div>
+    <% end %>
+    <%= yield %>
+
+    <% if session[:user_id] %>
+       <li>Hello <%= current_user.first_name %></li>
+      <% end %>
+  </div>
 </body>
 </html>

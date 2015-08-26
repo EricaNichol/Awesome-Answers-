@@ -1,0 +1,22 @@
+<br>
+<%= form_tag questions_path, method: :get do %>
+  <%= search_field_tag :search, params[:search] %>
+  <%= submit_tag "Search", class: "btn btn-primary" %>
+  <% end %>
+
+
+<h1>ALL QUESTIONS</h1>
+
+<%= link_to "Title", questions_path(search: params[:search], order: "Title"), class: "btn btn-info" %>
+<%= link_to "Order by Body", questions_path(search: params[:search], order: "Body"), class: "btn btn-warning" %>
+<br>
+<br>
+  <%#= link_to q.title, question_path(q) %>
+  <%#= link_to q.title, question_path({id: q.id}) %>
+<% @questions.each do |q| %>
+<div>
+  <li><%= link_to q.title, q %></li>
+</div>
+<% end %>
+
+<%= paginate @questions %>
