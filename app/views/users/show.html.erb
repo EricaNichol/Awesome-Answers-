@@ -1,0 +1,6 @@
+<h1><%= @user.first_name %></h1>
+<h1><%= @user.last_name %></h1>
+<h1><%= @user.email %></h1>
+
+<%#= this link to the edit page of the question that shows a form to edit the vales already saved %>
+<%= link_to "Edit", edit_user_path(@user), class: "btn btn-info" %>

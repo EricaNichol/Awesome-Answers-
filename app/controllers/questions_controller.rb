@@ -3,6 +3,7 @@ class QuestionsController < ApplicationController
   #before_action :find_question, except: [:new, :create]
   before_action :find_question, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:show, :index]
+  before_action :authorize!, only: [:edit, :update, :destroy]
   #the new action is the one that is used by convention in rails to display a form to create the record (in this case question record)
   def new
     #We instantiate an instance variable of the object we'd like to create in order to use the "form_for" helper method in Rails to easily generate a form that submits to the create action
@@ -13,7 +14,8 @@ class QuestionsController < ApplicationController
     #params.require ensures that the params hash has a key :question and fetches all the attributes from that hash. the . permit only allows the parameters given to be mass-assigned.
     #question_params = params.require(:question).permit([:title, :body])
     #question_params => {title: "ABC", body:"xyz"}
-    @question = Question.new(question_params)
+    @question      = Question.new(question_params)
+    @question.user = current_user
     if @question.save
       #flash[:notice] = "Question created!"
       #passing :notice/ :alert only works for redirect
@@ -47,6 +49,7 @@ class QuestionsController < ApplicationController
   #GET / questions/ :id/edit (e.g /questions/123/edit)
   #this is used to show a form to edit and submit to update a question in the database
   def edit
+    #redirect_to root_path, alert:"access denied" unless can? :edit, @question
     #@question = Question.find params[:id]
   end
 
@@ -78,5 +81,9 @@ end
   def question_params
     params.require(:question).permit([:title, :body, :locked, :category_id])
   end
+
+  def authorize!
+    redirect_to root_path, alert: "access denied" unless can? :manage, @question
+  end 
 
 end

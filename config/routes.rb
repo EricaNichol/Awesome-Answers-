@@ -4,7 +4,17 @@ Rails.application.routes.draw do
   with in WelcomeController which is located in app/controllers folder get get({"/hello" => "welcome#index"})
 =end
 
-resources :users, only: [:new, :create]
+resources :users, only: [:new, :create] do
+  #get :hello #nested resource -> prepended with /users/:user_id
+  #get :hello, on: :collection # not nested - doesn't include :id in URL, (similar to :new, :index, :create)
+  #get :hello, on: :member #not nested - includes :id in the url , very similar to :edit
+  #get :edit, on: :collection
+  #patch :update, on: :collection
+  collection do
+    get   :edit
+    patch :update
+  end
+  end
 
 resources :sessions, only: [:new, :create, :destroy] do
   # this will create for s a route with DELETE http verb and /sessions

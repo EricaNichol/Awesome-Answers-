@@ -2,6 +2,7 @@ class Question < ActiveRecord::Base
 
   has_many :answers, dependent: :destroy
   belongs_to :category
+  belongs_to :user
   #has_many :answers assumes that you have a model Answer that has a reference
   # to the model (question) called question_id (Integer)
   #dependent: option is needed because we've added a foreign key constraint to our
@@ -34,6 +35,14 @@ class Question < ActiveRecord::Base
   #scope :recent, lambda { order(:created_at).reverse_order}
 
   #delegate :name, to: :category, prefix: true
+  def user_name
+    if user
+      user.full_name 
+    else
+      "Anonymous"
+    end
+  end
+
   def category_name
     category.name
   end
