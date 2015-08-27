@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
     # the user authenticates correctly
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
-      redirect_to root_path, notice: "Signed in Successfully"
+      redirect_to questions_path, notice: "Signed in Successfully"
     else
       flash[:alert] = "Wrong Credentials"
       render json: params
@@ -20,7 +20,7 @@ end
 
   def destroy
     session[:user_id] = nil
-    redirect_to root_path, notice: "Sign out successfully"
+    redirect_to questions_path, notice: "Sign out successfully"
   end
 
 end
