@@ -14,6 +14,7 @@ class SessionsController < ApplicationController
       redirect_to questions_path, notice: "Signed in Successfully"
     else
       flash[:alert] = "Wrong Credentials"
+      render :new
   end
 end
 

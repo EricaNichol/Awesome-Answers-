@@ -27,6 +27,7 @@ resources :questions do
   resources :answers, only: [:create, :destroy]
   resources :likes, only: [:create, :destroy]
   resources :favorites, only: [:create, :destroy]
+  resources :votes, only: [:create,:update, :destroy]
   #resources (:answers, {only: [:create, :destroy]})
   #nesting resources: answers in here makes every URL for answers prepended with /questions/:question_id
 end

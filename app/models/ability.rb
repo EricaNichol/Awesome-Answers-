@@ -13,7 +13,7 @@ class Ability
       q.user == user
     end
 
-    can :destroy, Like do |l|
+    can :destroy, [Like, Vote] do |l|
       l.user == user
     end
 

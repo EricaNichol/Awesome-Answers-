@@ -1,5 +1,11 @@
 class Question < ActiveRecord::Base
 
+  has_many :votes, dependent: :destroy
+  has_many :voters, through: :votes, source: :user
+
+  has_many :taggings, dependent: :destroy
+  has_many :tags, through: :taggings
+
 
   has_many :favorites, dependent: :destroy
   has_many :favorite_users, through: :favorites, source: :favorites

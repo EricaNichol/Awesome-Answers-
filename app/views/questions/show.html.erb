@@ -3,6 +3,9 @@
 <p><%= @question.body %></p>
 <p>View Count:<%= @question.view_count %></p>
 <p>Category: <%= @question.category_name %></p>
+
+<p>Tags: <%= @question.tags.map { |x| x.name }.join(", ") %></p>
+
 <p>Created by <%= @question.user_name %> on <%= formatted_date(@question.created_at) %></p>
 
 <%#= this link to the edit page of the question that shows a form to edit the vales already saved %>
@@ -22,8 +25,26 @@
         question_likes_path(@question), class:"big-icon", method: :post %>
   <% end %>
 <% end %>
-
 (<%= @question.likes.count %>)
+
+
+
+<% if user_signed_in? %>
+  <% if current_user_vote.nil? %>
+  <%= link_to fa_icon("chevron-up"), question_votes_path(@question, {vote: {up: true}}), class: "big-icon", method: :post %>
+  <%= link_to fa_icon("chevron-down"), question_votes_path(@question, {vote: {up: false}}), class: "big-icon", method: :post%>
+  <% elsif current_user_vote.up? %>
+    <%# user has voted up %>
+    <%= link_to fa_icon("chevron-circle-up"),
+          question_vote_path(@question, current_user_vote), method: :delete, class: "big-icon" %>
+  <% else %>
+<% end %>
+  <%#  user has voted down %>
+<% end %>
+
+
+
+
 
   <% if user_signed_in? %>
     <% if current_user.favorite_question?(@question) %>

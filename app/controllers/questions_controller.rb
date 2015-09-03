@@ -80,7 +80,7 @@ end
   end
 
   def question_params
-    params.require(:question).permit([:title, :body, :locked, :category_id])
+    params.require(:question).permit([:title, :body, :locked, :category_id, {tag_ids: []}])
   end
 
   def authorize!

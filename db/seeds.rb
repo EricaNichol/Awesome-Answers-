@@ -10,6 +10,10 @@
   c.save
 end
 
+["Ruby", "Rails", "Javascript", "HTML", "CSS", "GIT", "GITHUB", "SQL", "JQUERY"].each do |tag|
+  Tag.create(name: tag)
+end
+
 all_category = Category.all
 
 100.times do
@@ -19,7 +23,7 @@ all_category = Category.all
   created_at  =   Time.now - (rand(30)).days
   Question.create({title: title,
                    body: body,
-                   category: all_category.sample, 
+                   category: all_category.sample,
                    view_count: view_count,
                    created_at: created_at})
 end
