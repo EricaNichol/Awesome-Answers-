@@ -10,10 +10,16 @@ class Ability
     end
     # define an ability to :manage (meaning any action)
     can :manage, Question do |q|
-      q.user == user 
+      q.user == user
     end
 
+    can :destroy, Like do |l|
+      l.user == user
+    end
 
+    can :destroy, Favorite do |f|
+      f.user == user
+    end
     # Define abilities for the passed in user here. For example:
     #
     #   user ||= User.new # guest user (not logged in)

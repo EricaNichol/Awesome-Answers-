@@ -6,6 +6,8 @@ source 'https://rubygems.org'
 # we run 'bundle' or 'bundle install' if we add/remove gems which will update the Gemfile.lock file
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'font-awesome-rails'
+gem 'rails-erd'
 gem 'rails_12factor', group: :production
 gem 'cancancan'
 gem 'kaminari'

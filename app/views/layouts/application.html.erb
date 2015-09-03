@@ -30,7 +30,6 @@
       <% if user_signed_in? %>
 
       <li><%= link_to edit_users_path do %> Hello <%= current_user.first_name %></li>
-
       <li><%= link_to "Sign-Out", sessions_path, method: :delete %></li>
       <% end %>
       <% end %>
@@ -45,9 +44,6 @@
     <% end %>
     <%= yield %>
 
-    <% if session[:user_id] %>
-       <li>Hello <%= current_user.first_name %></li>
-      <% end %>
   </div>
 </body>
 </html>

@@ -12,6 +12,29 @@
 <% if can? :destroy, @question %>
   <%= link_to "Delete", question_path(@question), class: "btn btn-danger", method: :delete, data: {confirm: "are you sure?"} %>
 <% end %>
+<br>
+
+<% if user_signed_in? %>
+  <% if current_user.liked_question?(@question) %>
+    <%= link_to fa_icon("thumbs-up"), question_like_path(@question, @question.like_for(current_user)), class: "big-icon", title: "Un-like", method: :delete %>
+    <% else %>
+      <%= link_to fa_icon("thumbs-o-up"),
+        question_likes_path(@question), class:"big-icon", method: :post %>
+  <% end %>
+<% end %>
+
+(<%= @question.likes.count %>)
+
+  <% if user_signed_in? %>
+    <% if current_user.favorite_question?(@question) %>
+      <%= link_to fa_icon("hand-lizard-o"), question_favorite_path(@question, @question.favorite_for(current_user)), class: "big-icon", method: :delete   %>
+      <% else %>
+        <%= link_to fa_icon("hand-scissors-o"), question_favorites_path(@question), class:"big-icon", method: :post %>
+        <% end %>
+        <% end %>
+
+(<%= @question.favorites.count %>)
+
 
 <%#= link_to (@question.locked ? "Lock" : "Un-lock"), question_path(@question, {question: {locked: !question.locked}}),
     class: "btn btn-warning", method: :patch %>

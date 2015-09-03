@@ -1,5 +1,13 @@
 class Question < ActiveRecord::Base
 
+
+  has_many :favorites, dependent: :destroy
+  has_many :favorite_users, through: :favorites, source: :favorites
+
+
+  has_many :likes, dependent: :destroy
+  has_many :users, through: :likes
+
   has_many :answers, dependent: :destroy
   belongs_to :category
   belongs_to :user
@@ -35,9 +43,18 @@ class Question < ActiveRecord::Base
   #scope :recent, lambda { order(:created_at).reverse_order}
 
   #delegate :name, to: :category, prefix: true
+
+  def like_for(user)
+    likes.find_by_user_id(user.id)
+  end
+
+  def favorite_for(user)
+    favorites.find_by_user_id(user.id)
+  end
+
   def user_name
     if user
-      user.full_name 
+      user.full_name
     else
       "Anonymous"
     end

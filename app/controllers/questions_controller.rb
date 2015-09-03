@@ -31,11 +31,12 @@ class QuestionsController < ApplicationController
   end
 
   def show
-    @answer = Answer.new
+    @answer   = Answer.new
     @feedback = Feedback.new
 
     #@question = Question.find params[:id] #finds the params
   end
+
   #Get/questions
   #this is used to show a page with listing of al the questions in our DB
   def index
@@ -62,7 +63,7 @@ class QuestionsController < ApplicationController
       redirect_to question_path(@question)
       #redirecting to the question show page
     else
-    render text: "update!" #or redirect_to
+    render text: "update error!" #or redirect_to
   end
 end
 
@@ -84,6 +85,6 @@ end
 
   def authorize!
     redirect_to root_path, alert: "access denied" unless can? :manage, @question
-  end 
+  end
 
 end
