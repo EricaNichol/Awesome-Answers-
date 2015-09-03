@@ -14,7 +14,15 @@ end
 
 
 
-  def updated
+  def update
+    vote = Vote.find params[:id]
+    if !(can? :update, vote)
+      redirect_to root_path, alert:"Access Denied"
+    elsif vote.update vote_params
+      redirect_to @question, notice: "Vote Updated"
+    else
+      redirect_to @question, alert: "Vote was not updated"
+    end
   end
 
   def destroy

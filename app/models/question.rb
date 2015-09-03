@@ -49,6 +49,9 @@ class Question < ActiveRecord::Base
   #scope :recent, lambda { order(:created_at).reverse_order}
 
   #delegate :name, to: :category, prefix: true
+  def votes_count
+    votes.select {|v| v.up?}.count - votes.select { |v| v.down?}.count
+  end
 
   def like_for(user)
     likes.find_by_user_id(user.id)
