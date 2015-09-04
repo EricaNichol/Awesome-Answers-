@@ -9,9 +9,9 @@ class AnswersController < ApplicationController
     # @answer = @question.answers.new(answer_params)
     @question = Question.find params[:question_id]
     @answer.question = @question
-    @answer.save
     if @answer.save
-    redirect_to question_path(@question), notice: "Answer Created!"
+      AnswersMailer.notify_question_owner(@answer).deliver_now
+      redirect_to question_path(@question), notice: "Answer Created!"
     else
       flash[:alert] = "Answer wasn't created"
       #this will render show.html.erb within questions folder (in views)

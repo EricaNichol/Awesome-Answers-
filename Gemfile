@@ -37,6 +37,10 @@ gem "cowsay", ">= 0.2.0 "
 gem 'bcrypt', '~> 3.1.7'
 gem "faker"
 
+group :development do
+  gem "letter_opener"
+end
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 
